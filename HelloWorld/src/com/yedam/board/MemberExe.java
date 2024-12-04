@@ -5,6 +5,7 @@ package com.yedam.board;
  * 
  */
 public class MemberExe {
+	//인스턴스 vs. 정적(static)필드, 정적메소드 선언.
 	private Member[] storage;
 
 	// 생성자
