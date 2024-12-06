@@ -22,9 +22,9 @@ public class DAO {
 		try {
 			if (conn != null)
 				conn.close();
-			if (conn != null)
+			if (psmt != null)
 				psmt.close();
-			if (conn != null)
+			if (rs != null)
 				rs.close();
 
 		} catch (SQLException e) {
