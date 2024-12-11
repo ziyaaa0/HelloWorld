@@ -31,6 +31,7 @@ public class BoardControl implements Control {
 			String content = req.getParameter("content");;
 			String writer = req.getParameter("writer");;
 			
+			//위의 값을 가지고 BoardVO 생성
 			BoardVO board = new BoardVO();
 			board.setTitle(title);
 			board.setContent(content);
