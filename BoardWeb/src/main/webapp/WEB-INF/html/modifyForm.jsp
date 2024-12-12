@@ -9,11 +9,19 @@
 
 <%
 BoardVO bvo = (BoardVO) request.getAttribute("board");
+
+//파라미터 추가.
+String sc = (String) request.getAttribute("searchCondition");
+String kw = (String) request.getAttribute("keyword");
+String pg = (String) request.getAttribute("page");
 %>
 
 <!-- frontControl에 수정 기능이 담긴 화면으로 넘어감  -->
 <form action="modifyBoard.do">
 <input type="hidden" name="board_no" value="<%=bvo.getBoardNo()%>">
+<input type="hidden" name="searchCondition" value="<%=sc%>">
+<input type="hidden" name="keyword" value="<%=kw%>">
+<input type="hidden" name="page" value="<%=pg%>">
 
 <table class="table">
 	<tr>

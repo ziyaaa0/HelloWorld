@@ -11,22 +11,7 @@
 </head>
 <body>
 <jsp:forward page = "boardList.do"></jsp:forward>
-  <%
-  // 주석처리.
-  String msg = "Hello";
-  System.out.println(msg);
-  %>
-  
-  <p>변수에 담긴 값은 <%=msg %></p>
-  
-  <%
-  BoardDAO bdao = new BoardDAO();
-  List<BoardVO> list = bdao.boardList();
-  
-  for (BoardVO board : list) {
-  %>
-  <p>글번호:<%=board.getBoardNo() %> 제목:<%=board.getTitle() %></p>
-  <%} %>
+
   
 </body>
 </html>

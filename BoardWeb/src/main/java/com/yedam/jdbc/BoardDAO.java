@@ -10,7 +10,7 @@ import com.yedam.vo.BoardVO;
 
 public class BoardDAO extends DAO {
 
-	// 회원정보 로그인 진행.
+	// 회원정보 로그인 진행.     //파라메타
 	public String login(String id, String pw) {
 		getConn();
 		String sql = "select * FROM tbl_member " //
