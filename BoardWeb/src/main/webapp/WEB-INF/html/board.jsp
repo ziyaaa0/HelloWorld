@@ -22,7 +22,9 @@
 		</tr>	
 		<tr>
 			<th>제목</th>
-			<td colspan="3">${board.title}</td>
+			<td>${board.title}</td>
+			<th>이미지</th>
+			<td><img src = "images/${board.img }" width = 100px></td>
 		</tr>
 		<tr>
 			<th>내용</th>
@@ -55,4 +57,39 @@
 </form>
 <!-- board.jsp 원래 있던 부분. -->
 
+<!-- 댓글 시작 -->
+<style>
+	div.reply .content ul {
+		list-style-type: none;
+}
+	div.reply .content span {
+		display: inline-block;
+}
+</style>
+<div class="reply">
+	<div class="header">
+		댓글 : <input type="text" id="reply" class="col-sm-7">
+		<button id="addBtn" class="col-sm-2 btn btn-primary"> 댓글등록 </button>
+	</div> <!-- 댓글등록 -->
+	<div class="content">
+		<ul>
+			<li>
+				<span class="col-sm-2">글번호</span>
+				<span class="col-sm-5">내용</span>
+				<span class="col-sm-2">작성자</span>
+				<span class="col-sm-2">삭제</span>
+				<hr>
+			</li>
+			<!-- board.js에서 가져온 내용 -->
+		</ul>
+		<ul class="list"></ul>
+	</div> <!-- 댓글목록 -->
+	<div class="footer"></div> <!-- 댓글paging -->
+</div>
+<!-- 댓글 끝 -->
+<script>
+ let bno = "${board.boardNo}";
+ let logId = "${logId}";
+</script>
+<script src="js/board.js"></script>
 <jsp:include page="../includes/footer.jsp"></jsp:include>

@@ -130,7 +130,8 @@ public class BoardDAO extends DAO {
 				brd.setWriter(rs.getString("writer"));
 				brd.setViewCnt(rs.getInt("view_cnt"));
 				brd.setCreationDate(rs.getDate("creation_date"));
-
+				brd.setImg(rs.getString("img"));
+				
 				return brd;
 			}
 
@@ -146,13 +147,15 @@ public class BoardDAO extends DAO {
 	public boolean insertBoard(BoardVO board) {
 		getConn();
 		String sql = "insert into tbl_board " //
-				+ "(board_no, title, content, writer) " //
-				+ "values(board_seq.nextval, ?, ?, ?) ";
+				+ "(board_no, title, content, writer, img) " //
+				+ "values(board_seq.nextval, ?, ?, ?, ? ) ";
 
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, board.getTitle());
 			psmt.setString(2, board.getContent());
+			psmt.setString(3, board.getWriter());
+			psmt.setString(4, board.getImg());
 			int r = psmt.executeUpdate(); // 쿼리실행.
 			if (r > 0) {
 				return true;
@@ -168,7 +171,8 @@ public class BoardDAO extends DAO {
 	// 목록.
 	public List<BoardVO> boardList(SearchDTO search) {
 		getConn();
-		String sql = "SELECT b.* " + "   FROM    (SELECT rownum rn, a.*  " + "    FROM   (SELECT *  "
+		String sql = "SELECT b.* " + "   FROM    (SELECT rownum rn, a.*  " 
+		        + "    FROM   (SELECT *  "
 				+ "            FROM tbl_board  ";
 
 		// Title 검색조건 => title 컬럼에서 값을 조회
@@ -182,8 +186,10 @@ public class BoardDAO extends DAO {
 				sql += "             WHERE title like '%'||?||'%' OR writer like '%'||?||'%'  ";
 			}
 		}
-		sql += "                ORDER BY board_no desc ) a )b  " + "   WHERE b.rn > (? -1) *5  "
+		sql += "                ORDER BY board_no desc ) a ) b  " 
+		        + "   WHERE b.rn > (? -1) * 5  "
 				+ "   and  b.rn <=  ? * 5 ";
+		
 		List<BoardVO> result = new ArrayList<>(); // 반환값.
 
 		// 순번 알려줌.
