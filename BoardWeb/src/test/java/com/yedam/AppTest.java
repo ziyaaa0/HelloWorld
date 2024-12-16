@@ -1,19 +1,20 @@
 package com.yedam;
 
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.yedam.jdbc.ReplyDAO;
-import com.yedam.vo.ReplyVO;
 
 public class AppTest {
 	public static void main(String[] args) {
 		ReplyDAO rdao = new ReplyDAO();
-		if (rdao.deleteReply(1)) {
-			System.out.println("삭제됨");
-		} else {
-
-			System.out.println("삭제안됨");
-		}
-		for (ReplyVO rvo : rdao.selectList(120)) {
-			System.out.println(rvo.toString());
-		}
+		List<Map<String, Object>> result = rdao.chartData();
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(result);
+		
+		System.out.println(json);
 	}
 }
