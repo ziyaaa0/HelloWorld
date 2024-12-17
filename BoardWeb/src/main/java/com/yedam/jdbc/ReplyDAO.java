@@ -31,17 +31,83 @@ public class ReplyDAO extends DAO{
 						+ "from tbl_reply "
 						+ "group by board_no ";
 	
+	//삭제기능
+	String removeQuery = "delete from tbl_events "
+			+ "           WHERE title = ? AND start_date = ? AND end = ? " ;
+	
+	
+	
+	
+	
+	//일정 삭제
+	public boolean removeData(Map<String, String> map) {
+		getConn();
+		
+		try {
+			psmt = conn.prepareStatement(removeQuery);
+			psmt.setString(1, map.get("title"));
+			psmt.setString(2, map.get("start"));
+			psmt.setString(3, map.get("end"));
+			
+			
+			int r = psmt.executeUpdate(); //쿼리 업데이트나 인서트
+			if(r > 0) {
+				return true;
+			}
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			disConnect();
+		} return false;
+	}	
+	
+	
+	//일정등록.
+	public boolean insertEvent(Map<String, String> map) {
+		getConn();
+		String sql = "insert into tbl_events (title, start_date, end) "
+				+ "	 values(?, ?, ?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, map.get("title"));
+			psmt.setString(2, map.get("start"));
+			psmt.setString(3, map.get("end"));
+			
+			int r = psmt.executeUpdate(); //처리된 건수 반환.			
+			if(r > 0) {
+				return true; //정상처리.
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+ 		} finally {
+ 			disConnect();
+ 		}
+		return false; //비정상처리.
+	}
+	
 	//fullcalendar 데이터.
 	public List<Map<String, Object>> calendarData(){
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		getConn();
+		String sql = "SELECT title, start_date , end FROM tbl_events ";
 		
 		try {
 			
-			psmt = conn.prepareStatement("SELECT title, start_date as start, end_date as end FROM tbl_events ");
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("title", rs.getString("title"));
+				map.put("start", rs.getString("start_date"));
+				map.put("end", rs.getString("end"));
+				
+				list.add(map);
+			}
 			
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
 		}finally {
 			disConnect();
 		}

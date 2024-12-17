@@ -1,5 +1,6 @@
 package com.yedam;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +10,18 @@ import com.yedam.jdbc.ReplyDAO;
 
 public class AppTest {
 	public static void main(String[] args) {
+		
+		
 		ReplyDAO rdao = new ReplyDAO();
-		List<Map<String, Object>> result = rdao.chartData();
+		
+		Map<String, String> inputVal = new HashMap<>();
+		inputVal.put("title", "입력테스트");
+		inputVal.put("start", "2024-12-02");
+		inputVal.put("end", "2024-12-04");
+		
+		rdao.insertEvent(inputVal);
+		
+		List<Map<String, Object>> result = rdao.calendarData();
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(result);

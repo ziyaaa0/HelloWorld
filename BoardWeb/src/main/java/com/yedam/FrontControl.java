@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.control.AddEventControl;
 import com.yedam.control.AddReplyControl;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardFormControl;
 import com.yedam.control.BoardListControl;
+import com.yedam.control.CalendarDataControl;
 import com.yedam.control.ChartControl;
 import com.yedam.control.ChartDataControl;
 import com.yedam.control.FullCalendarControl;
@@ -22,6 +24,7 @@ import com.yedam.control.GetReplyCountControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LogoutControl;
+import com.yedam.control.RemoveDataControl;
 import com.yedam.control.RemoveReplyControl;
 import com.yedam.control.ReplyListControl;
 
@@ -68,6 +71,9 @@ public class FrontControl extends HttpServlet {
 		
 		//fullcalendar
 		map.put("/full.do", new FullCalendarControl());
+		map.put("/fullData.do", new CalendarDataControl());
+		map.put("/addEvent.do", new AddEventControl()); //일정등록
+		map.put("/removeData.do", new RemoveDataControl());
 	}
 
 	@Override
